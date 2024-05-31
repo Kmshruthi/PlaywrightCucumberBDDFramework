@@ -1,0 +1,29 @@
+{
+  "name": "playwrightcucumberbddframework",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "npx ts-node e2e/helper/init.ts",
+    "test": "cross-env ENV=prod cucumber-js test || npm run posttest",
+    "test:failed": "cucumber-js -p rerun @rerun.txt",
+    "posttest": "npx ts-node e2e/helper/report.ts"
+  },
+  "keywords": [
+    "cucumber",
+    "cucumber - TS",
+    "playwright-cucumber"
+  ],
+  "author": "ShruthiMukunda",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@cucumber/cucumber": "^10.8.0",
+    "@playwright/test": "^1.44.1",
+    "@types/node": "^20.12.13",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "multiple-cucumber-html-reporter": "^3.6.2",
+    "ts-node": "^10.9.2"
+  }
+}
