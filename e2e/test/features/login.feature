@@ -1,9 +1,9 @@
 Feature: Login Functionality
 
   Background:
-    Given I am on the Login page
+    Given I am on the "login" page
 
-@login @LoginEmpty
+@login @all
   Scenario: Successful login with valid credentials
     When I fill in username with 'tomsmith'
     And I fill in password with 'SuperSecretPassword!'
@@ -12,7 +12,7 @@ Feature: Login Functionality
     And I should see the text "You logged into a secure area!"
 
 
-  @LoginEmpty
+  @LoginEmpty @all
   Scenario Outline: Unsuccessful login with invalid credentials
     When I fill in username with '<username>'
     And I fill in password with '<password>'

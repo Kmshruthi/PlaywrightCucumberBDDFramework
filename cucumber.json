@@ -1,6 +1,6 @@
 {
     "default": {
-        "tags":"@LoginEmpty",
+        "tags":"@all",
         "formatOptions": {
             "snippetInterface": "async-await"
         },
