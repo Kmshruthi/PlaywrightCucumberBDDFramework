@@ -3,10 +3,11 @@ import { pageFixture } from "../../hooks/pageFixture";
 import LoginPage from "../../pages/login"
 
 let loginPage : LoginPage;
-Given('I am on the Login page', async function () {
+Given('I am on the {string} page', async function (subUrl) {
     loginPage = new LoginPage(pageFixture.page)
-    await loginPage.navigateUrl();
+    await loginPage.navigateUrl(subUrl);
 });
+
 When('I fill in username with {string}', async function (username) {
     await loginPage.addUsername(username)
 });
@@ -30,4 +31,8 @@ Then('I should be redirected to the Secure Area page', async function () {
 
 Then('I should see the text {string}', async function (message) {
     await loginPage.assertLoggedInSuccessMessage(message);
+});
+
+Then('success message should be seen', async function () {
+    await loginPage.assertSuccessMessage();
 });

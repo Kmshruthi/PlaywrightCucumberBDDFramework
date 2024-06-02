@@ -13,16 +13,30 @@ BeforeAll(async function () {
   browser = await invokeBrowser();
 })
 
-Before(async function () {
-  context = await browser.newContext();
+Before(async function ({ pickle }) {
+  const scenarioName = pickle.name + pickle.id;
+  let creds = {
+    "user": "admin",
+    "password": "admin"
+  }
+  if (scenarioName.includes("basic auth")) {
+    context = await browser.newContext({
+      httpCredentials: {
+        username: "admin",
+        password: "admin"
+      }
+    });
+  } else {
+    context = await browser.newContext();
+  }
   const page = await context.newPage();
   pageFixture.page = page
 })
 
-After(async function ({ pickle , result}) {
-  if (result?.status == Status.PASSED || result?.status == Status.FAILED){
-  const img = await pageFixture.page.screenshot({ path: `test-results/screenshots/${pickle.name}.png`, type: "png" })
-  await this.attach(img, "image/png");
+After(async function ({ pickle, result }) {
+  if (result?.status == Status.PASSED || result?.status == Status.FAILED) {
+    const img = await pageFixture.page.screenshot({ path: `test-results/screenshots/${pickle.name}.png`, type: "png" })
+    await this.attach(img, "image/png");
   }
   await pageFixture.page.close();
   await context.close();
