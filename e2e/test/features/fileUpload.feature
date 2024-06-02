@@ -7,3 +7,4 @@ Feature:FileUpload Functionality
   Scenario: Successful File Upload
     When the file is selected and uploaded
     Then file upload should be successful
+    
