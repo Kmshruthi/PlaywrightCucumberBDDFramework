@@ -3,7 +3,7 @@ import { Browser, Page, BrowserContext } from "@playwright/test"
 import { pageFixture } from "./pageFixture";
 import { invokeBrowser } from "../helper/browsers/browserManager";
 import { getEnv } from "../helper/env/env";
-
+const fs = require('fs-extra');
 let page: Page;
 let browser: Browser;
 let context: BrowserContext
@@ -27,19 +27,29 @@ Before(async function ({ pickle }) {
       }
     });
   } else {
-    context = await browser.newContext();
+    context = await browser.newContext({
+      recordVideo: {
+        dir: "test-results/videos",
+      },
+    });
   }
   const page = await context.newPage();
   pageFixture.page = page
 })
 
 After(async function ({ pickle, result }) {
+  let videoName: string;
+  await pageFixture.page.waitForTimeout(3000)
   if (result?.status == Status.PASSED || result?.status == Status.FAILED) {
     const img = await pageFixture.page.screenshot({ path: `test-results/screenshots/${pickle.name}.png`, type: "png" })
     await this.attach(img, "image/png");
+    videoName = await pageFixture.page.video().path();
+    fs.rename(videoName, `test-results/videos/${pickle.name}.webm`)
   }
+
   await pageFixture.page.close();
   await context.close();
+
 })
 
 AfterAll(async () => {

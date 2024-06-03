@@ -1,22 +1,22 @@
 import { Locator, Page, expect } from "@playwright/test";
 
-export default class fileUpload{
+export default class fileUpload {
   fileUpload: Locator;
   uploadButton: Locator;
   successMessage: Locator;
 
-  constructor(private page:Page){
+  constructor(private page: Page) {
     this.fileUpload = page.locator("#file-upload");
-    this.uploadButton = page.locator("#file-submit");
-    this.successMessage = page.locator("//h3[text()='File Uploaded!']")
+    this.uploadButton = page.getByRole('button', { name: 'Upload' });
+    this.successMessage = page.getByRole('heading')
   }
 
-  async uploadFile(){
+  async uploadFile() {
     await this.fileUpload.setInputFiles("e2e/helper/testData/one.jpg")
   }
 
-async clickOnFileUploadButton(){
-  await this.uploadButton.click()
-  // expect(this.successMessage.innerText()).toContain("File Uploaded!")
-}
+  async clickOnFileUploadButton() {
+    await this.uploadButton.click()
+    await expect(this.successMessage).toContainText('File Uploaded!');
+  }
 }
