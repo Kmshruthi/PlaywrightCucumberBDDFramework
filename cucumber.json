@@ -1,6 +1,6 @@
 {
     "default": {
-        "tags":"@all",
+        "tags": "@alertPrompt",
         "formatOptions": {
             "snippetInterface": "async-await"
         },
@@ -22,7 +22,8 @@
             "json:test-results/cucumber-report.json",
             "rerun:@rerun.txt"
         ],
-        "parallel": 5
+        "parallel": 2,
+        "workers": 2
     },
     "rerun": {
         "formatOptions": {
