@@ -1,6 +1,6 @@
-module.export = {
+module.exports = {
   default: {
-    tags: process.env.npm_config_TAGS || " ",// run the tests with particular tag or if not provided all the tests
+    tags: process.env.npm_config_TAGS || "" ,// run the tests with particular tag or if not provided all the tests
     formatOptions: {
       snippetInterface: "async-await"
     },
