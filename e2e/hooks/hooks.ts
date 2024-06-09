@@ -28,6 +28,7 @@ Before(async function ({ pickle }) {
     });
   } else {
     context = await browser.newContext({
+      storageState: getStorageState(pickle.name),
       recordVideo: {
         dir: "test-results/videos",
       },
@@ -55,3 +56,13 @@ After(async function ({ pickle, result }) {
 AfterAll(async () => {
   await browser.close()
 })
+
+function getStorageState(user: string): string | { cookies: { name: string; value: string; domain: string; path: string; expires: number; httpOnly: boolean; secure: boolean; sameSite: "Strict" | "Lax" | "None"; }[]; origins: { origin: string; localStorage: { name: string; value: string; }[]; }[]; } {
+  if (user.includes("lead")) {
+    return "e2e/helper/auth/lead.json";
+  } else {
+    return "e2e/helper/auth/admin.json";
+  }
+
+
+}

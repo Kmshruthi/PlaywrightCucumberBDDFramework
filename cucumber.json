@@ -1,6 +1,6 @@
 {
     "default": {
-        "tags": "@alertPrompt",
+        "tags": "@auth",
         "formatOptions": {
             "snippetInterface": "async-await"
         },
