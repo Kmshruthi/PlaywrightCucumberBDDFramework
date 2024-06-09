@@ -8,7 +8,7 @@ Feature:Alerts Functionality
     When I click on the JS "alert"
     Then it should be accepted
 
-  @alertsConfirm
+@alertsConfirm @all
   Scenario Outline: Handle the confirmation dialog <action>
     When I click on the JS "confirm"
     And I '<action>' the confirmation
@@ -18,7 +18,7 @@ Feature:Alerts Functionality
       | accept  | You clicked: Ok     |
       | dismiss | You clicked: Cancel |
 
-@alertPrompt
+@alertPrompt @all
   Scenario Outline: Handle the prompt dialog <action>
     When I click on the JS "prompt"
     And I enter the '<value>' and '<action>' the dialog
